@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --bg-color: #050505;
+  --text-primary: #e0e0e0;
+  --text-secondary: #888888;
+  --red-accent: #ff2a2a;
+  --red-glow: rgba(255, 42, 42, 0.6);
+  --panel-bg: #0f0f0f;
+  --panel-border: #222222;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: radial-gradient(circle at center, #111 0%, #000 100%);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-nav {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--panel-border);
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.header-status {
+  color: var(--red-accent);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--red-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--red-glow);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; box-shadow: 0 0 8px var(--red-glow); }
+  50% { opacity: 0.5; box-shadow: 0 0 2px var(--red-glow); }
+  100% { opacity: 1; box-shadow: 0 0 8px var(--red-glow); }
+}
+
+.app-container {
+  flex: 1;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Glitch Effect */
+.glitch-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.glitch {
+  font-size: 5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  color: #fff;
+  text-shadow: 
+    3px 0px 0px rgba(255,0,0,0.8),
+    -3px 0px 0px rgba(0,255,255,0.8);
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 red;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 cyan;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(74px, 9999px, 86px, 0); }
+  20% { clip: rect(10px, 9999px, 87px, 0); }
+  40% { clip: rect(12px, 9999px, 78px, 0); }
+  60% { clip: rect(54px, 9999px, 59px, 0); }
+  80% { clip: rect(21px, 9999px, 3px, 0); }
+  100% { clip: rect(98px, 9999px, 98px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  20% { clip: rect(8px, 9999px, 34px, 0); }
+  40% { clip: rect(31px, 9999px, 20px, 0); }
+  60% { clip: rect(15px, 9999px, 70px, 0); }
+  80% { clip: rect(87px, 9999px, 25px, 0); }
+  100% { clip: rect(29px, 9999px, 45px, 0); }
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+.panels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.panel:hover {
+  transform: translateY(-2px);
+  border-color: #333;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.panel.active {
+  border-color: var(--red-accent);
+  box-shadow: 0 0 15px rgba(255, 42, 42, 0.15);
+}
+
+.panel-title {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.panel-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.panel.active .panel-value {
+  color: var(--red-accent);
+  text-shadow: 0 0 10px var(--red-glow);
+}
+
+.controls-section {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.controls-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 1rem;
+}
+
+.controls-title {
+  font-size: 1.2rem;
+  color: var(--red-accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--panel-border);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #444;
+}
+
+.btn.primary {
+  border-color: var(--red-accent);
+  color: var(--red-accent);
+}
+
+.btn.primary:hover {
+  background: rgba(255, 42, 42, 0.1);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.2);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.time-input-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.time-input {
+  background: #000;
+  border: 1px solid var(--panel-border);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  width: 120px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.time-input:focus {
+  outline: none;
+  border-color: var(--red-accent);
+  box-shadow: 0 0 5px var(--red-glow);
+}
+
+/* Background grid effect */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
